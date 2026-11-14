@@ -589,7 +589,19 @@ XFCE_EOF
       <property name="plugin-ids" type="array">$idxml
       </property>
       <property name="mode" type="uint" value="0"/>
-      <property name="background-style" type="uint" value="0"/>
+      <property name="background-style" type="uint" value="1"/>
+      <property name="background-rgba" type="array">
+        <value type="double" value="0.10196"/>
+        <value type="double" value="0.10196"/>
+        <value type="double" value="0.10196"/>
+        <value type="double" value="1"/>
+      </property>
+      <property name="background-color" type="array">
+        <value type="uint" value="6682"/>
+        <value type="uint" value="6682"/>
+        <value type="uint" value="6682"/>
+        <value type="uint" value="65535"/>
+      </property>
     </property>
   </property>
   <property name="plugins" type="empty">
