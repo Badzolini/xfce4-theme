@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # default-apps.sh - installs my everyday apps and sets them as defaults.
 # Debian/Ubuntu-based distros. Run as a NORMAL user (not root).
-# Apps: Brave, netdiscover, Tabby (+ my config, highlight plugin), Nomacs (+ my settings),
-#       FileZilla, BleachBit, LocalSend, speedtest-cli (netdiscover too)
+# Apps: Brave, Tabby (+ my config, highlight plugin), Nomacs (+ my settings),
+#       FileZilla, BleachBit, LocalSend, speedtest-cli, netdiscover
 set -u
 
 [ "$(id -u)" -eq 0 ] && { echo "Run this as your normal user, not root."; exit 1; }
@@ -39,7 +39,7 @@ install_deb() {  # $1=name  $2=dpkg package  $3=owner/repo  $4=regex  $5=templat
 install_all() {
   echo "== apt update =="
   sudo apt-get update
-  local want="curl ca-certificates nomacs speedtest-cli filezilla bleachbit" ok="" p
+  local want="curl ca-certificates nomacs speedtest-cli filezilla bleachbit netdiscover" ok="" p
   for p in $want; do
     [ -n "$(apt-cache policy "$p" 2>/dev/null | awk '/Candidate:/ && $2!="(none)"')" ] && ok="$ok $p" \
       || echo "  (skipping $p: not in repos)"
