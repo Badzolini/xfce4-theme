@@ -14,7 +14,6 @@ curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/main/setup-xf
 - **Effects:** window transparency and shadows (inactive/moving/resizing windows at 83%)
 - **Panel:** single bottom bar with tray, volume, power and clock
 - **Shortcuts:** Linux Mint style, plus Windows-style `Super` + arrows for window snapping
-- **Cursor:** shake the mouse to magnify it ([cursor-scaler](https://github.com/adelmonte/x11_shake_to_magnify_cursor), built from source)
 - **Terminal:** xfce4-terminal in green, HTB colour scheme available, Parrot two-line bash prompt
 
 Themes are downloaded on the fly, only what is needed (about 80 MB). If a download fails, the script falls back to Arc-Dark and Papirus-Dark.
@@ -50,7 +49,6 @@ Installs the apps below (already installed ones are skipped), applies my Tabby a
 - [XFCE](https://gitlab.xfce.org/xfce) and [Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin)
 - [xfce4-docklike-plugin](https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin) (taskbar)
 - [Xfce Theme Manager](https://github.com/KeithDHedger/Xfce-Theme-Manager) by KeithDHedger
-- [x11_shake_to_magnify_cursor](https://github.com/adelmonte/x11_shake_to_magnify_cursor) by adelmonte
 
 **Themes**
 - [botnetbuddies/hackthebox-themes](https://github.com/botnetbuddies/hackthebox-themes) (HTB icons and terminal colours, Unlicense)

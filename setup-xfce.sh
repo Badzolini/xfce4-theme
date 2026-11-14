@@ -65,35 +65,6 @@ install_all() {
   echo "== Brave Origin (nightly) =="
   command -v brave-origin-nightly >/dev/null || { command -v curl >/dev/null || sudo apt-get install -y curl; curl -fsS https://dl.brave.com/install.sh | FLAVOR=origin CHANNEL=nightly sh \
     || echo "  Brave install failed, skipping"; }
-
-  get_shake
-}
-
-# shake the mouse to magnify the cursor (https://github.com/adelmonte/x11_shake_to_magnify_cursor)
-get_shake() {
-  echo "== shake-to-magnify cursor =="
-  if ! command -v cursor-scaler >/dev/null; then
-    sudo apt-get install -y git gcc libx11-dev libxcursor-dev libxrender-dev libxfixes-dev libxi-dev || true
-    local tmp; tmp=$(mktemp -d)
-    if git clone -q --depth 1 https://github.com/adelmonte/x11_shake_to_magnify_cursor "$tmp/s" \
-       && gcc -o "$tmp/cursor-scaler" "$tmp/s/cursor_scaler.c" -lX11 -lXcursor -lXrender -lXfixes -lXi -lm -O3; then
-      sudo install -m755 "$tmp/cursor-scaler" /usr/local/bin/cursor-scaler
-    else
-      echo "  cursor-scaler build failed, skipping"
-    fi
-    rm -rf "$tmp"
-  fi
-  if command -v cursor-scaler >/dev/null; then
-    mkdir -p "$HOME/.config/autostart"
-    cat > "$HOME/.config/autostart/cursor-scaler.desktop" <<'DESK_EOF'
-[Desktop Entry]
-Type=Application
-Name=Cursor Scaler
-Comment=Shake the mouse to magnify the cursor
-Exec=cursor-scaler
-X-GNOME-Autostart-enabled=true
-DESK_EOF
-  fi
 }
 
 # ------------------------------------------------- themes (downloaded, minimal)
@@ -749,7 +720,6 @@ apply_live() {
     pgrep -x xfwm4      >/dev/null || start_bg xfwm4 --replace
     pgrep -x xfce4-panel >/dev/null || start_bg xfce4-panel
     pgrep -x xfdesktop  >/dev/null || start_bg xfdesktop
-    command -v cursor-scaler >/dev/null && { pgrep -x cursor-scaler >/dev/null || start_bg cursor-scaler; }
     # make sure the Windows-style snap keys are active right now, not only after the next login
     if command -v xfconf-query >/dev/null; then
       for kv in "Left:tile_left_key" "Right:tile_right_key" "Up:maximize_window_key" "Down:hide_window_key"; do
