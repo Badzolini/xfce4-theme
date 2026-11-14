@@ -29,8 +29,10 @@ put() { mkdir -p "$(dirname "$1")"; cat > "$1"; }
 
 # ----------------------------------------------------------------- install
 install_all() {
+  # a leftover "cdrom:" apt source (live/installer media) makes every apt-get update fail
+  sudo sed -i 's|^\(deb cdrom:\)|# \1|' /etc/apt/sources.list /etc/apt/sources.list.d/*.list 2>/dev/null || true
   echo "== apt update =="
-  sudo apt-get update
+  sudo apt-get update || true
 
   # keep only packages this distro actually has, then install in ONE apt run
   local want="$CORE $LOOK $APPS" ok="" p
