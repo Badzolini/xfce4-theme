@@ -83,6 +83,11 @@ get_win10dark() {
 }
 
 get_htb_icons() {
+  # HTB colour scheme for xfce4-terminal (pick it in Preferences > Colors > Presets)
+  if [ ! -e /usr/share/xfce4/terminal/colorschemes/hackthebox.theme ] && [ -d /usr/share/xfce4/terminal/colorschemes ]; then
+    sudo curl -fsSL -o /usr/share/xfce4/terminal/colorschemes/hackthebox.theme \
+      https://raw.githubusercontent.com/botnetbuddies/hackthebox-themes/main/usr/share/xfce4/terminal/colorschemes/hackthebox.theme || true
+  fi
   { [ -d /usr/share/icons/htb-icon-theme ] || [ -d /usr/share/icons/Hack-The-Box-Icons ]; } && return 0
   echo "== downloading HTB icons (only 16px + 32px, ~60 MB) =="
   command -v git >/dev/null || sudo apt-get install -y git
