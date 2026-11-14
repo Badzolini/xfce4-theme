@@ -729,10 +729,13 @@ EOF
   if curl -fsSL -o /tmp/whisker-gtk.css https://raw.githubusercontent.com/Badzolini/xfce4-theme/main/themes/whisker-menu/gtk.css; then
     [ -f "$HOME/.config/gtk-3.0/gtk.css" ] && [ ! -e "$HOME/.config/gtk-3.0/gtk.css.bak-setup" ] && cp -a "$HOME/.config/gtk-3.0/gtk.css" "$HOME/.config/gtk-3.0/gtk.css.bak-setup"
     cp /tmp/whisker-gtk.css "$HOME/.config/gtk-3.0/gtk.css"; rm -f /tmp/whisker-gtk.css
-    local wrc="$HOME/.config/xfce4/panel/whiskermenu-1.rc" kv
-    touch "$wrc"
-    for kv in menu-opacity=95 position-search-alternate=true position-commands-alternate=true; do
-      sed -i "/^${kv%%=*}=/d" "$wrc"; echo "$kv" >> "$wrc"
+    # write the settings for our Whisker id (1) and for any other Whisker id the panel already has
+    local wid wrc kv
+    for wid in 1 $(xfconf-query -c xfce4-panel -p /plugins -lv 2>/dev/null | grep -i whiskermenu | sed -nE 's|^/plugins/plugin-([0-9]+).*|\1|p'); do
+      wrc="$HOME/.config/xfce4/panel/whiskermenu-$wid.rc"; touch "$wrc"
+      for kv in menu-opacity=95 position-search-alternate=true position-commands-alternate=true; do
+        sed -i "/^${kv%%=*}=/d" "$wrc"; echo "$kv" >> "$wrc"
+      done
     done
   else
     echo "  Whisker menu CSS download failed, skipping"
