@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # default-apps.sh - installs my everyday apps and sets them as defaults.
 # Debian/Ubuntu-based distros. Run as a NORMAL user (not root).
-# Apps: Brave, Tabby (+ my config, highlight plugin), Nomacs (+ my settings),
-#       FileZilla, BleachBit, LocalSend, speedtest-cli
+# Apps: Brave, netdiscover, Tabby (+ my config, highlight plugin), Nomacs (+ my settings),
+#       FileZilla, BleachBit, LocalSend, speedtest-cli (netdiscover too)
 set -u
 
 [ "$(id -u)" -eq 0 ] && { echo "Run this as your normal user, not root."; exit 1; }

@@ -41,6 +41,7 @@ Installs the apps below (already installed ones are skipped), applies my Tabby a
 | [BleachBit](https://github.com/bleachbit/bleachbit) | System cleaner |
 | [LocalSend](https://github.com/localsend/localsend) | Local file sharing |
 | [speedtest-cli](https://github.com/sivel/speedtest-cli) | Speed test |
+| [netdiscover](https://github.com/netdiscover-scanner/netdiscover) | Network scanner (run with `sudo`) |
 
 ## Credits
 
@@ -55,7 +56,7 @@ Installs the apps below (already installed ones are skipped), applies my Tabby a
 - [Yaru](https://github.com/ubuntu/yaru) (Ubuntu community)
 
 **Apps**
-- Brave, Tabby, Nomacs, FileZilla, BleachBit, LocalSend and speedtest-cli, linked in the table above
+- Brave, Tabby, Nomacs, FileZilla, BleachBit, LocalSend, speedtest-cli and netdiscover, linked in the table above
 
 ## License
 
