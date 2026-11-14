@@ -36,7 +36,7 @@ install_all() {
   # keep only packages this distro actually has, then install in ONE apt run
   local want="$CORE $LOOK $APPS" ok="" p
   systemd-detect-virt -q 2>/dev/null && want="$want qemu-guest-agent spice-vdagent"
-  for p in $want; do apt-cache show "$p" >/dev/null 2>&1 && ok="$ok $p" || echo "  (skipping $p: not in repos)"; done
+  for p in $want; do [ -n "$(apt-cache policy "$p" 2>/dev/null | awk '/Candidate:/ && $2!="(none)"')" ] && ok="$ok $p" || echo "  (skipping $p: not in repos)"; done
   echo "== install packages =="
   sudo apt-get install -y $ok
 
@@ -106,15 +106,10 @@ get_htb_icons() {
 }
 
 extract_look() {
-  local here f
-  here="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)"
-  for f in "$here/parrot-look.tar.gz" "$HOME/parrot-look.tar.gz" "$HOME/Documents/parrot-look.tar.gz" "$HOME/Downloads/parrot-look.tar.gz"; do
-    if [ -f "$f" ]; then
-      echo "== unpacking themes from $f =="
-      sudo tar xzf "$f" -C / && sudo gtk-update-icon-cache -f /usr/share/icons/htb-icon-theme 2>/dev/null
-      return
-    fi
-  done
+  # themes always come from the internet; a local parrot-look.tar.gz is used only with USE_LOCAL_BUNDLE=1
+  if [ "${USE_LOCAL_BUNDLE:-0}" = 1 ] && [ -f "$HOME/Documents/parrot-look.tar.gz" ]; then
+    sudo tar xzf "$HOME/Documents/parrot-look.tar.gz" -C / && return
+  fi
   get_win10dark
   get_htb_icons
 }
