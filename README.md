@@ -19,7 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/main/setup-xf
 Themes are downloaded on the fly, only what is needed (about 80 MB). If a download fails, the script falls back to Arc-Dark and Papirus-Dark.
 
 ```bash
-SKIP_INSTALL=1 ./setup-xfce.sh   # apply settings only, skip package installs
+curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/main/setup-xfce.sh | SKIP_INSTALL=1 bash   # apply settings only
 ```
 
 Your old config is backed up to `~/.config/xfce4.bak-setup` on the first run.
