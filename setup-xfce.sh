@@ -628,8 +628,9 @@ XFCE_EOF
       <property name="mode" type="uint" value="2"/>
       <property name="digital-layout" type="uint" value="1"/>
       <property name="digital-time-format" type="string" value="%H:%M"/>
-      <property name="digital-time-font" type="string" value="Sans Bold 8"/>
-      <property name="digital-date-font" type="string" value="Sans 8"/>
+      <property name="digital-time-font" type="string" value="Sans 9"/>
+      <property name="digital-date-format" type="string" value="%d.%m.%Y."/>
+      <property name="digital-date-font" type="string" value="Sans 9"/>
     </property>
   </property>
 </channel>
