@@ -40,7 +40,7 @@ Your old config is backed up to `~/.config/xfce4.bak-setup` on the first run.
 
 ## Credits
 
-[botnetbuddies](https://github.com/botnetbuddies/hackthebox-themes) (HTB themes, Unlicense) · [Parrot Security](https://www.parrotsec.org/) (Windows 10 Dark) · [KeithDHedger](https://github.com/KeithDHedger/Xfce-Theme-Manager) (Xfce Theme Manager)
+[botnetbuddies](https://github.com/botnetbuddies/hackthebox-themes) (HTB themes, Unlicense) · [Parrot Security](https://www.parrotsec.org/) (Windows 10 Dark) · [KeithDHedger](https://github.com/KeithDHedger/Xfce-Theme-Manager) (Xfce Theme Manager) · [xfce4-docklike-plugin](https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin) (taskbar)
 
 ## License
 
