@@ -706,12 +706,17 @@ EOF
 apply_live() {
   if [ "$LIVE" = "1" ]; then
     echo "== restarting panel/window manager =="
-    setsid xfce4-panel >/dev/null 2>&1 &
-    setsid xfwm4 --replace >/dev/null 2>&1 &
-    pkill -x xfsettingsd 2>/dev/null; setsid xfsettingsd >/dev/null 2>&1 &
-    xfdesktop --reload >/dev/null 2>&1 || true
+    # xfconfd was stopped above, so xfwm4/xfdesktop may have died: start whatever is missing (never block)
+    start_bg() { ( setsid nohup "$@" >/dev/null 2>&1 < /dev/null & ) ; }
+    start_bg xfwm4 --replace
+    pkill -x xfsettingsd 2>/dev/null; start_bg xfsettingsd
+    pgrep -x xfce4-panel >/dev/null || start_bg xfce4-panel
+    if pgrep -x xfdesktop >/dev/null; then timeout 5 xfdesktop --reload >/dev/null 2>&1 || true; else start_bg xfdesktop; fi
+    sleep 3
+    pgrep -x xfwm4      >/dev/null || start_bg xfwm4 --replace
+    pgrep -x xfce4-panel >/dev/null || start_bg xfce4-panel
+    pgrep -x xfdesktop  >/dev/null || start_bg xfdesktop
     # make sure the Windows-style snap keys are active right now, not only after the next login
-    sleep 2
     if command -v xfconf-query >/dev/null; then
       for kv in "Left:tile_left_key" "Right:tile_right_key" "Up:maximize_window_key" "Down:hide_window_key"; do
         xfconf-query -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Super>${kv%%:*}" -n -t string -s "${kv#*:}" 2>/dev/null
