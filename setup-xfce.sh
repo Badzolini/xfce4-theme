@@ -716,7 +716,14 @@ EOF
   local logo wid wrc kv
   logo=$(find /usr/share/icons/desktop-base /usr/share/pixmaps "$HOME/.icons" -name 'emblem-parrot*.png' 2>/dev/null | sort -t/ -k1,1 | grep -m1 '64x64' || true)
   [ -z "$logo" ] && logo=$(find /usr/share/icons /usr/share/pixmaps "$HOME/.icons" -name 'emblem-parrot*' -print -quit 2>/dev/null)
-  [ -z "$logo" ] && logo="xfce4-whiskermenu"   # same neutral icon on every distro when there is no Parrot logo
+  if [ -z "$logo" ]; then
+    # use a real file path so the icon never depends on the icon theme
+    for n in org.xfce.panel.whiskermenu xfce4-whiskermenu start-here-xfce start-here; do
+      logo=$(find /usr/share/icons/hicolor /usr/share/pixmaps /usr/share/icons -name "$n.svg" -o -name "$n.png" 2>/dev/null | sort -r | head -1)
+      [ -n "$logo" ] && break
+    done
+  fi
+  [ -z "$logo" ] && logo="start-here"   # same neutral icon on every distro when there is no Parrot logo
   sed -i "s|value=\"emblem-parrot\"|value=\"$logo\"|" "$X/xfce4-panel.xml"
   # Whisker reads its button settings from its own rc file, so write the icon there too
   for wid in 1 $(xfconf-query -c xfce4-panel -p /plugins -lv 2>/dev/null | grep -i whiskermenu | sed -nE 's|^/plugins/plugin-([0-9]+).*|\1|p'); do
