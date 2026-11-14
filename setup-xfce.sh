@@ -713,14 +713,18 @@ EOF
     echo "  Whisker menu CSS download failed, skipping"
   fi
   # whisker menu button icon: Parrot logo only if that icon exists
-  local logo
+  local logo wid wrc kv
   logo=$(find /usr/share/icons/desktop-base /usr/share/pixmaps "$HOME/.icons" -name 'emblem-parrot*.png' 2>/dev/null | sort -t/ -k1,1 | grep -m1 '64x64' || true)
   [ -z "$logo" ] && logo=$(find /usr/share/icons /usr/share/pixmaps "$HOME/.icons" -name 'emblem-parrot*' -print -quit 2>/dev/null)
-  if [ -n "$logo" ]; then
-    sed -i "s|value=\"emblem-parrot\"|value=\"$logo\"|" "$X/xfce4-panel.xml"
-  else
-    sed -i 's|value="emblem-parrot"|value="start-here"|' "$X/xfce4-panel.xml"
-  fi
+  [ -z "$logo" ] && logo="xfce4-whiskermenu"   # same neutral icon on every distro when there is no Parrot logo
+  sed -i "s|value=\"emblem-parrot\"|value=\"$logo\"|" "$X/xfce4-panel.xml"
+  # Whisker reads its button settings from its own rc file, so write the icon there too
+  for wid in 1 $(xfconf-query -c xfce4-panel -p /plugins -lv 2>/dev/null | grep -i whiskermenu | sed -nE 's|^/plugins/plugin-([0-9]+).*|\1|p'); do
+    wrc="$HOME/.config/xfce4/panel/whiskermenu-$wid.rc"; touch "$wrc"
+    for kv in "button-icon=$logo" button-single-row=true; do
+      sed -i "/^${kv%%=*}=/d" "$wrc"; echo "$kv" >> "$wrc"
+    done
+  done
 }
 
 # ------------------------------------------------------------- apply live
