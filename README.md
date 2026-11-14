@@ -33,7 +33,6 @@ If a theme can't be downloaded, the script falls back to Arc-Dark and Papirus-Da
 
 ```bash
 SKIP_INSTALL=1 ./setup-xfce.sh      # apply settings only, skip package installs
-USE_LOCAL_BUNDLE=1 ./setup-xfce.sh  # use ~/Documents/parrot-look.tar.gz instead of downloading
 ```
 
 Your old config is backed up to `~/.config/xfce4.bak-setup` on the first run.

@@ -15,7 +15,6 @@ MA=$(dpkg-architecture -qDEB_HOST_MULTIARCH 2>/dev/null || echo x86_64-linux-gnu
 
 # Where the Parrot theme bundle (Windows 10 Dark, htb icons, Parrot logo) is downloaded from
 # when it is not already next to the script. Edit YOUR_GITHUB_USER once, after you upload the release.
-BUNDLE_URL="${BUNDLE_URL:-https://github.com/YOUR_GITHUB_USER/xfce-setup/releases/latest/download/parrot-look.tar.gz}"
 
 # Edit these lists freely. Packages that do not exist on a distro are skipped.
 CORE="xfce4 xfce4-goodies xfce4-whiskermenu-plugin xfce4-docklike-plugin xfce4-pulseaudio-plugin xfce4-notifyd xfce4-power-manager-plugins xapp pavucontrol"
@@ -106,10 +105,6 @@ get_htb_icons() {
 }
 
 extract_look() {
-  # themes always come from the internet; a local parrot-look.tar.gz is used only with USE_LOCAL_BUNDLE=1
-  if [ "${USE_LOCAL_BUNDLE:-0}" = 1 ] && [ -f "$HOME/Documents/parrot-look.tar.gz" ]; then
-    sudo tar xzf "$HOME/Documents/parrot-look.tar.gz" -C / && return
-  fi
   get_win10dark
   get_htb_icons
 }
