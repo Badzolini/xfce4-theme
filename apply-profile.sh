@@ -48,9 +48,10 @@ if [[ $FIRSTLOGIN -eq 0 ]]; then
   log "Paketi za profil"
   avail=()
   for p in $PACKAGES fonts-ubuntu; do
-    apt-cache show "$p" >/dev/null 2>&1 && avail+=("$p") || echo "   (preskačem $p - nema u repou)"
+    cand=$(apt-cache policy "$p" 2>/dev/null | awk '/Candidate:/{print $2}')
+    if [[ -n "$cand" && "$cand" != "(none)" ]]; then avail+=("$p"); else echo "   (preskačem $p - nema u repou ove distre)"; fi
   done
-  sudo apt-get install -y "${avail[@]}"
+  sudo apt-get install -y "${avail[@]}" || echo "   Upozorenje: neki paketi nisu instalirani, nastavljam."
 fi
 
 # ---------- 2. Teme, ikone ----------
