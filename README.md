@@ -25,6 +25,17 @@ curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/main/setup-xf
 
 Your old config is backed up to `~/.config/xfce4.bak-setup` on the first run.
 
+## Peppermint OS 9 look (test branch)
+
+Peppermint OS 9 themes (7 colours × Dark/Light/Mix), Peppermint window borders and its bottom panel with Whisker menu, on any XFCE distro.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/peppermint/peppermint.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Badzolini/xfce4-theme/peppermint/peppermint.sh | COLOR=Blue-Mix bash
+```
+
+Colours: `Red`, `Blue`, `Green`, `Grey`, `Orange`, `Pink`, `Purple` + `-Dark` / `-Light` / `-Mix`. Details in [profiles/peppermint](profiles/peppermint).
+
 ## Apps
 
 ```bash

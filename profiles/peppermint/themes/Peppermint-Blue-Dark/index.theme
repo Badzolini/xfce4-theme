@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Peppermint-Blue-Dark
+Comment=A flat theme with transparent elements
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Peppermint-Blue-Dark
+MetacityTheme=Peppermint-Blue-Dark
+IconTheme=gnome
+CursorTheme=DMZ-White
+ButtonLayout=menu:minimize,maximize,close
