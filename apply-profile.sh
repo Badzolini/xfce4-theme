@@ -64,7 +64,7 @@ if [[ -d ~/.icons/$ICON_THEME || -d /usr/share/icons/$ICON_THEME ]]; then
 else
   ICONS="$ICON_FALLBACK"; MENU_ICON="start-here"
 fi
-fc-list | grep -qi "Ubuntu" && FONT_USE="$FONT" || { FONT_USE="$FONT_FALLBACK"; TITLE_FONT="${FONT_FALLBACK% *} Bold 9"; }
+fc-list : family | grep -i "^Ubuntu" >/dev/null && FONT_USE="$FONT" || { FONT_USE="$FONT_FALLBACK"; TITLE_FONT="${FONT_FALLBACK% *} Bold 9"; }
 
 # ---------- 3. Ako nismo u XFCE sesiji: završi pri sledećem loginu ----------
 if [[ -z "${DISPLAY:-}" ]] || ! pgrep -u "$(id -u)" -x xfce4-session >/dev/null; then
